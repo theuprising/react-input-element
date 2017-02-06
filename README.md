@@ -2,61 +2,29 @@
 
 Just like a normal <input> element except it fires onChange and onBlur with the input value rather than the event.
 
+[try it out on codepen](http://codepen.io/amonks/pen/mRKveg?editors=0010)
+
 ```javascript
 import React from 'react'
 import { render } from 'react-dom'
 
 import Input from 'react-input-element'
 
-class Validator extends React.Component {
+class Simple extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      value: '',
-      message: ''
-    }
-    this.set = this.set.bind(this)
-    this.validate = this.validate.bind(this)
-  }
-
-  set (value) {
-    this.setState({value})
-  }
-
-  validate (value) {
-    if (value === this.props.value) {
-      this.setState({message: `You typed "${this.props.value}". Good job!`})
-    } else {
-      this.setState({message: `You didn\`t type "${this.props.value}"! Terrible!`})
+      value: ''
     }
   }
-
   render () {
     return (
-      <div style={{padding: 30}}>
-        {this.state.value}
-        <br />
-        type "{this.props.value}"
-        <br />
-        <Input
-          onChange={this.set}
-          onBlur={this.validate}
-        />
-        <br />
-        {this.state.message}
-      </div>
+      <Input 
+        value={this.state.value} 
+        onChange={value => this.setState({value})}
+      />
     )
   }
 }
-
-const Demo = () => (
-  <main>
-    <Validator value='snakes' />
-    <Validator value='badgers' />
-  </main>
-)
-
-render(<Demo />, document.querySelector('#demo'))
-
 ```
 
