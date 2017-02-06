@@ -1,16 +1,62 @@
 # react-input-element
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
+Just like a normal <input> element except it fires onChange and onBlur with the input value rather than the event.
 
-Describe react-input-element here.
+```javascript
+import React from 'react'
+import { render } from 'react-dom'
 
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
+import Input from 'react-input-element'
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
+class Validator extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      value: '',
+      message: ''
+    }
+    this.set = this.set.bind(this)
+    this.validate = this.validate.bind(this)
+  }
 
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+  set (value) {
+    this.setState({value})
+  }
+
+  validate (value) {
+    if (value === this.props.value) {
+      this.setState({message: `You typed "${this.props.value}". Good job!`})
+    } else {
+      this.setState({message: `You didn\`t type "${this.props.value}"! Terrible!`})
+    }
+  }
+
+  render () {
+    return (
+      <div style={{padding: 30}}>
+        {this.state.value}
+        <br />
+        type "{this.props.value}"
+        <br />
+        <Input
+          onChange={this.set}
+          onBlur={this.validate}
+        />
+        <br />
+        {this.state.message}
+      </div>
+    )
+  }
+}
+
+const Demo = () => (
+  <main>
+    <Validator value='snakes' />
+    <Validator value='badgers' />
+  </main>
+)
+
+render(<Demo />, document.querySelector('#demo'))
+
+```
+
