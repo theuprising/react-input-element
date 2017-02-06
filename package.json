@@ -24,10 +24,10 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
-  "author": "",
+  "author": "Andrew Monks <a@monks.co>",
   "homepage": "",
-  "license": "MIT",
-  "repository": "",
+  "license": "ISC",
+  "repository": "git@github.com:theuprising/react-input-element.git",
   "keywords": [
     "react-component"
   ]
